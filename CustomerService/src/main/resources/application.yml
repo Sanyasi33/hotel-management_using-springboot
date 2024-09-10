@@ -1,0 +1,28 @@
+#Configuration for circuit breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      RatingService:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        slidingWindowSize: 10
+        failureRateThreshold: 5
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowType: COUNT_BASED
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+#Configuration for spring boot actuator to check health metrics
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health   #'*' means all (with single quote)
+
+  endpoint:
+    health:
+      show-details: always

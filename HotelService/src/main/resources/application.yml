@@ -1,0 +1,47 @@
+#Configuration for circuit breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingService:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        slidingWindowSize: 10
+        failureRateThreshold: 5
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowType: COUNT_BASED
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+  retry:
+    instances:
+      ratingService:
+        maxAttempts: 3            # Maximum number of retry attempts
+        waitDurationMs: 5000      # Wait duration between retries
+        #retryOnException: true   # Retry on exceptions (like FeignException)
+        #retryOnStatus:
+        # - 500                   # Retry when external service returns HTTP 500
+        #- 503                    # Retry when external service returns HTTP 503
+        #ignoreExceptions:
+        #  - com.dr.exceptions.ResourceNotFoundException    # Ignore ResourceNotFoundException
+        #retryExceptions:
+        #  - feign.FeignException                           # Retry only on FeignException
+  ratelimiter:
+    instances:
+      ratingService:
+        limit-refresh-period: 4s
+        limit-for-period: 2  # Maximum number of requests per refresh period
+        time-duration: 0s
+
+#Configuration for spring boot actuator to check health metrics
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health   #'*' means all (with single quote)
+
+  endpoint:
+    health:
+      show-details: always
