@@ -1,3 +1,12 @@
+# Below configuration, we have to pass service instance id in the parameter
+#spring:
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true   #Lowercase service id also allowed
+
 spring:
   cloud:
     gateway:
