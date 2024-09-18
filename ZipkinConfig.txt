@@ -1,0 +1,15 @@
+Step-1: Download the zipkin jar file from the url => https://zipkin.io/pages/quickstart.html
+Step-2: Open the CMD on the current directory where zipkin jar file is availabe.
+Step-3: To run the zipkin => java -jar zipkin-server-3.4.1-exec.jar
+Step-4: After running copy the given url(e.g: http://127.0.0.1:9411/) and hit this url on the broswer
+(Default url of zipkin is: 9411)
+Step-5: Add the following dependencies
+		<!--Below 2 dependencies for Zipkin-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-brave</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.reporter2</groupId>
+			<artifactId>zipkin-reporter-brave</artifactId>
+		</dependency>
